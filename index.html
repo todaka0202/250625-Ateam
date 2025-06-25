@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>天気付き日記</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    label, input, textarea, button { display: block; margin: 0.5em 0; }
+    .entry { border-bottom: 1px solid #ccc; margin-bottom: 1em; padding-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <h1>天気付き日記</h1>
+  <form id="diaryForm">
+    <label>日付: <input type="date" id="date" required></label>
+    <label>内容: <textarea id="content" required></textarea></label>
+    <button type="submit">保存</button>
+  </form>
+  <div id="entries"></div>
+
+  <script>
+    const API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY'; // ここにAPIキーを入力
+    const CITY = 'Tokyo,jp'; // 都市名を指定
+
+    // 日記保存
+    document.getElementById('diaryForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const date = document.getElementById('date').value;
+      const content = document.getElementById('content').value;
+
+      // 天気取得
+      const weather = await fetchWeather(date);
+
+      // 保存
+      const entry = { date, content, weather };
+      let diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+      diaries.push(entry);
+      localStorage.setItem('diaries', JSON.stringify(diaries));
+      showEntries();
+      this.reset();
+    };
+
+    // 天気APIから天気取得
+    async function fetchWeather(date) {
+      // OpenWeatherMapの過去天気APIは有料なので、ここでは現在の天気を取得します
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&lang=ja&units=metric`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data.weather[0].description;
+      } catch {
+        return '取得失敗';
+      }
+    }
+
+    // 日記一覧表示
+    function showEntries() {
+      const diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+      const entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      diaries.forEach(entry => {
+        entriesDiv.innerHTML += `
+          <div class="entry">
+            <strong>${entry.date}</strong><br>
+            天気: ${entry.weather}<br>
+            <pre>${entry.content}</pre>
+          </div>
+        `;
+      });
+    }
+
+    showEntries();
+  </script>
+</body>
+</html>
