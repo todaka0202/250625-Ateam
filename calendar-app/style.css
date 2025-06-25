@@ -1,0 +1,71 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+#app {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 24px;
+}
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+.day, .weekday {
+    text-align: center;
+    padding: 8px 0;
+}
+.weekday {
+    font-weight: bold;
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+.day {
+    background: #fafafa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.day:hover {
+    background: #bbdefb;
+}
+```/* filepath: /workspaces/250625-Ateam/calendar-app/style.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+#app {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 24px;
+}
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+.day, .weekday {
+    text-align: center;
+    padding: 8px 0;
+}
+.weekday {
+    font-weight: bold;
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+.day {
+    background: #fafafa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background
